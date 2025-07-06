@@ -1,0 +1,116 @@
+CTYPE html>
+<html lang="en">
+	  <head>
+		      <meta charset="utf-8">
+			      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+				      <meta name="viewport" content="width=device-width, initial-scale=1">
+					      <title>perlopentut - simple recipes for opening files and pipes in Perl - Perldoc Browser</title>
+						      <link rel="search" href="/opensearch.xml" type="application/opensearchdescription+xml" title="Perldoc Browser">
+							      <link rel="canonical" href="https://perldoc.perl.org/perlopentut">
+								      <link href="/css/bootstrap.min.css" rel="stylesheet">
+									      <link href="/css/stackoverflow-light.min.css" rel="stylesheet">
+										      <link href="/css/perldoc.css" rel="stylesheet">
+											      <!-- Global site tag (gtag.js) - Google Analytics -->
+												      <script async src="https://www.googletagmanager.com/gtag/js?id=G-KVNWBNT5FB"></script>
+													      <script>
+															        window.dataLayer = window.dataLayer || [];
+															        function gtag(){dataLayer.push(arguments);}
+															        gtag('js', new Date());
+
+															        gtag('config', 'G-KVNWBNT5FB');
+															        gtag('config', 'UA-50555-3');
+															      </script>
+																    </head>
+																	  <body>
+																		      <nav class="navbar navbar-expand-md bg-dark" data-bs-theme="dark"><div class="container-fluid">
+																					    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+																							    <span class="navbar-toggler-icon"></span>
+																								  </button>
+																								    <a class="navbar-brand" href="/"><img src="/images/perl_camel_30.png" width="30" height="30" class="d-inline-block align-text-top" alt="Perl Camel Logo"> Perldoc Browser</a>
+																									  <div class="collapse navbar-collapse" id="navbarNav">
+																										      <ul class="navbar-nav me-auto">
+																												        <li class="nav-item dropdown text-nowrap">
+																															        <a class="nav-link dropdown-toggle" href="#" id="dropdownlink-stable" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">5.42.0</a>
+																																	        <div class="dropdown-menu" aria-labelledby="dropdownlink-stable">
+																																				          <a class="dropdown-item" href="/perlopentut">Latest</a>
+																																						            <hr class="dropdown-divider">
+																																									          <a class="dropdown-item active" href="/5.42.0/perlopentut">5.42.0</a>
+																																											            <hr class="dropdown-divider">
+																																														          <a class="dropdown-item" href="/5.40.2/perlopentut">5.40.2</a>
+																																																            <a class="dropdown-item" href="/5.40.1/perlopentut">5.40.1</a>
+																																																			          <a class="dropdown-item" href="/5.40.0/perlopentut">5.40.0</a>
+																																																					            <hr class="dropdown-divider">
+																																																								          <a class="dropdown-item" href="/5.38.4/perlopentut">5.38.4</a>
+																																																										            <a class="dropdown-item" href="/5.38.3/perlopentut">5.38.3</a>
+																																																													          <a class="dropdown-item" href="/5.38.2/perlopentut">5.38.2</a>
+																																																															            <a class="dropdown-item" href="/5.38.1/perlopentut">5.38.1</a>
+																																																																		          <a class="dropdown-item" href="/5.38.0/perlopentut">5.38.0</a>
+																																																																				            <hr class="dropdown-divider">
+																																																																							          <a class="dropdown-item" href="/5.36.3/perlopentut">5.36.3</a>
+																																																																									            <a class="dropdown-item" href="/5.36.2/perlopentut">5.36.2</a>
+																																																																												          <a class="dropdown-item" href="/5.36.1/perlopentut">5.36.1</a>
+																																																																														            <a class="dropdown-item" href="/5.36.0/perlopentut">5.36.0</a>
+																																																																																	          <hr class="dropdown-divider">
+																																																																																			            <a class="dropdown-item" href="/5.34.3/perlopentut">5.34.3</a>
+																																																																																						          <a class="dropdown-item" href="/5.34.2/perlopentut">5.34.2</a>
+																																																																																								            <a class="dropdown-item" href="/5.34.1/perlopentut">5.34.1</a>
+																																																																																											          <a class="dropdown-item" href="/5.34.0/perlopentut">5.34.0</a>
+																																																																																													            <hr class="dropdown-divider">
+																																																																																																          <a class="dropdown-item" href="/5.32.1/perlopentut">5.32.1</a>
+																																																																																																		            <a class="dropdown-item" href="/5.32.0/perlopentut">5.32.0</a>
+																																																																																																					          <hr class="dropdown-divider">
+																																																																																																							            <a class="dropdown-item" href="/5.30.3/perlopentut">5.30.3</a>
+																																																																																																										          <a class="dropdown-item" href="/5.30.2/perlopentut">5.30.2</a>
+																																																																																																												            <a class="dropdown-item" href="/5.30.1/perlopentut">5.30.1</a>
+																																																																																																															          <a class="dropdown-item" href="/5.30.0/perlopentut">5.30.0</a>
+																																																																																																																	            <hr class="dropdown-divider">
+																																																																																																																				          <a class="dropdown-item" href="/5.28.3/perlopentut">5.28.3</a>
+																																																																																																																						            <a class="dropdown-item" href="/5.28.2/perlopentut">5.28.2</a>
+																																																																																																																									          <a class="dropdown-item" href="/5.28.1/perlopentut">5.28.1</a>
+																																																																																																																											            <a class="dropdown-item" href="/5.28.0/perlopentut">5.28.0</a>
+																																																																																																																														      <a class="dropdown-item" href="/5.22.4/perlopentut">5.22.4</a>    <a class="dropdown-item" href="/5.22.0/perlopentut">5.22.0</a>
+																																																																																																																															            <hr class="dropdown-divider">
+																																																																																																																																		          <a clas/perlopentut">5.18.3</a>
+																																																																																																																																									            <a class="dropdown-item" hret">5.16.2</a>
+																																																																																																																																												          <a class="dropdown-item" href="/5.16.1/4.1/perlopentut">5.14.1</a>
+																																																																																																																																														            <a class="dropdown-item" 2.3</a>
+																																																																																																																																																	          <a class="dropdown-item" href="/5.12.2/perlop-divider">
+																																																																																																																																																				            <a class="dropdown-item" href="/5.10.1/per.7/perlopentut">5.8.7</a>
+																																																																																																																																																							          <a class="dropdown-item" href="/5.8.6/perlopentut">5.8.6</a>
+																																																																																																																																																									            <a class="dropdown-m" href="/5.005_04/perlopentut">5.005_04</a>
+																																																																																																																																																												          <a class-item" href="/5.42.0-RC2/perlopentut">5.42.0-RC2</a>
+																																																																																																																																																																		          /a>
+																																																																																																																																																																				            <a class="dropdown-item" href="/5.39.6/perlopentu           <a class="text-decoration-none" href="#NAME">NAME</ai>
+																																																																																																																																																																									                <a class="text-decoration-none" href="#Openif="#Opening-Pipes">Opening Pipes</a>
+																																																																																																																																																																															                              <ul>
+																																																																																																																																																																																						                <li>
+																																																																																																																																																																																										                <a class="text-decoration-none" href="#Opening-a-pipe-for-reading">Opening a pipe foext-decoration-none" href="#SEE-ALSO">SEE ALSO</a>
+																																																																																																																																																																																														             trouble of opening them yourself:</p>
+
+																																																																																																																																																																																																	 <pre><code>print STDERR &quot;This is a debugging message.\n&quot;;
+
+																																																																																																																																																																																																	 print STDOUT &quot;Please enter something: &quot;;
+																																																																																																																																																																																																	 $response = &lt;STDIN&gt; // sible values that the <i>MODE</i> parameter can take on.</p>
+
+																																																																																																																																																																																																	 <ing = &quot;:encoding(UTF-8)&quot;;
+																																																																																																																																																																																														   my $handle   = undef;     #ot;</code> is used to open the file in read-only mode. If it succeeds, Perl allocates a brand new filehandle for you and fills in your previously undefined <code>$handle</code> argument wityou don&#39;t have to supply it each time, you can use the <codOpening-Text-Files-for-Writing"><a class="permalink" href="#Opeppend mode. <code>&quot;&gt;&gt;&quot;</code> creates the file  &quot;:encoding(UTF-8)&quot;;
+
+																																																																																																																																																																																														   open($handle, &quot;&gt;&gt; $eyswrite</code>.</p>
+
+																																																																																																																																																																																														   <p>What about read-write mode? You should to do what you would like. See <a href="/perlfaq5">perlfaq5</a>coding, you tell Perl that your data are in raw bytes.</p>
+
+																																																																																																																																																																																														   <prt;&gt;&quot;</code> as needed:</p>
+
+																																																																																																																																																																																													   <pre><code>open($handle, &qde STDOUT&quot;;</code></pre>
+
+																																																																																																																																																																																													   <p>You can also pass <code>binmouot;binary&quot; mode, but we still use <code>binmode</code> tocopy a binary file:</p>
+
+																																																																																																																																																																																													   <pre><code>my $BUFSIZ   = 64 * (2 ** 1ning4"></a>Opening Pipes</h1>
+
+																																																																																																																																																																																													   <p>Perl also lets you open a filled <code>unsorted</code>, which contains a number of textfiless, gradually building up an in-memory array of all the file conto a file.</p>
+
+																																																																																																																																																																																													   <p>Note that the third argument to <code>open</e files to sort. The resulting filehandle <code>$sort_fh</code>mbers.</p>
+
+																																																																																																																																																																																													   <p>Certainly you could write your own code to do thn use it just as we would a write-only ordinary filehandle, including the basic function of <code>print</code>-ing data to it.</code>! But here in the third argument, it&#39;s simply part os arguments, or even just referring to filenames with spaces inter">
+																																																																																																																																																																																													           <p>Perldoc Browser is maintained by Dan Book (<a href="https://metacpan.org/author/DBOOK">DBOOK</a>). Please conrl5/issues">Perl issue tracker</a>, the <a href="https://lists.
+
