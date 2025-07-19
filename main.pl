@@ -1,25 +1,44 @@
+#!usr/bin/perl
+use strict;
+use warnings;
+use constant DEBUG => 0;
 
-sub println {
-	print @_, "\n"
+sub getFiles {
+	my @input_files = @_;
+	my @files = ();
+	while (@ARGV) {
+		my $new_file = shift @ARGV;
+		if ($new_file !~ /\.html$/i) {
+			warn "Non-HTML file in input: $new_file";
+			next;
+		}
+		push(@files, $new_file);
+	}
+	return @files;
 }
 
-my $filepath = $ARGV[0];
-
-die "Input is not an HTML file" if $filepath !~ /.html$/;
-
-open $FILE, "<", $filepath or die "$!";
-
-while (my $line = <$FILE>) {
-	my $spantext = "";
-	my $ptext = "";
-	if ($line =~ /[ \t]+<p/) {
-		($ptext) = $line =~ m/(?<=\>)(.*?)(?=\<\/p\>)/i;
-	}
-	if ($line =~ /[ \t]+<span/) {
-		($spantext) = $line =~ m/(?<=\>)(.*?)(?=\<\/h)/i;
-	}
-	print "<span>: $spantext\n" if length($spantext) > 0;
-	print "<p>: $ptext\n" if length($ptext) > 0;
+sub trim {
+	my $s = shift;
+	$s =~ s/^\s+|\s+$//g;
+	return $s;
 }
 
-close $FILE;
+sub main {
+	my @files = getFiles @ARGV;
+	foreach my $file (@files) {
+		open (my $FILE, "<", $file) or die "$!";
+		while (my $line = <$FILE>) {
+			my @text = "";
+			
+			print $line if DEBUG;
+			
+			if ($line =~ /[ \t]+</) {
+				(@text) = split /<.*?>/, trim $line;
+			}
+			print join('',@text),"\n" if @text;
+		}
+		close $FILE;
+	}
+}
+
+main() unless caller();
