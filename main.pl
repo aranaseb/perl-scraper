@@ -1,4 +1,15 @@
 #!usr/bin/perl
+# ============================
+# 
+# PROGRAM: main.pl
+# 
+# PURPOSE: Basic html scraper
+# that reports some stats
+# about the text on the page
+# 
+# @author Sebastian Arana
+#
+# ============================
 use strict;
 use warnings;
 use constant DEBUG => 0;
@@ -35,6 +46,8 @@ sub main {
 			if ($line =~ /[ \t]+</) {
 				(@text) = split /<.*?>/, trim $line;
 			}
+
+			@text = grep { $_ ne '[ \t\n]+' } @text;
 			print join('',@text),"\n" if @text;
 		}
 		close $FILE;
