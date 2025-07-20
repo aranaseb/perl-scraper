@@ -1,0 +1,33 @@
+#!usr/bin/perl
+use strict;
+use warnings;
+
+our @files;
+
+sub getFiles {
+	my @ARGV = @_
+	my $file;
+	while (@ARGV) {
+		$file = shift @ARGV;
+		if ($file !~ /\.html$/) {
+			warn "Non-HTML file in input: $file"
+			continue;
+		}
+			push(@files, $file)
+	}
+}
+
+sub main {
+	getFiles @ARGV
+	foreach @files {
+		open $FILE, "<", $_ or die "$!";
+		
+		while (my $line = <$FILE>) {
+			my $text = "";
+			if ($line =~ /[ \t]+<p/) {
+				($text) = $line =~ m/(?<=\>)(.*?)(?=\<\/h)/i;
+			}
+			print "$text\n" if length($text) > 0;
+		}
+}
+close $FILE;
