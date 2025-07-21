@@ -17,7 +17,7 @@ use strict;
 # another convention, just warning messages
 use warnings;
 
-# Specific libraru import of "max" function
+# Specific library import of "max" function
 use List::Util qw(max);
 
 # debug constant, like C macro but must be set here
@@ -44,7 +44,7 @@ sub get_files {
 		# Another of perl's three main types, the 'scalar'.
 		# Always marked with '$'.
 		# It accesses the list by popping off the head.
-		my $new_file = shift @ARGV;
+		my $new_file = shift @input_files;
 
 		# first use of regex matching: !~ operator
 		# checks if regex (between //) is NOT found in string
@@ -64,7 +64,6 @@ sub get_files {
 	return @files;
 }
 
-# param: string to be trimmed
 sub trim {
 	my $s = shift;
 
@@ -75,6 +74,7 @@ sub trim {
 	return $s;
 }
 
+# $_ parameter
 sub process_line {
 	# parameter $_ is not unpacked here.
 	# One of perl's features for efficiency is setting
@@ -87,24 +87,27 @@ sub process_line {
 	#
 	# I will only demonstrate it here, because for larger files it can become
 	# extremely hard to read without extracting and naming $_.
-	if (/[ \t]+</) {
-		# split func takes regex (matches text between tags)
-		# split also takes string to split
-		# Notice parameters are not inside parentheses, a stylistic choice.
-		(@text) = split /<.*?>/, trim $_;
-	}
+	
+	# remove text between script, style, noscript, head tags 
+	s/<(script|style|noscript|head)\b[^>]*>.*?<\/\1>//gsi;
 
-	# Perl's library includes many unix-style functions, like grep.
-	# This one searches through a list for strings that do not match
-	# the regex and filters out the others.
-	# Removes whitespace-only strings.
-	@text = grep { $_ ne '[ \t\n]+' } @text;
+	# 1 while is equivalent to while (condition) { 1 }
+	# This is shorthand to loop until the condition is false
+	# continuously removes html tags until none matched
+	1 while s/<(?:[^>'"]*|'[^']*'|"[^"]*")+>//g;
 
-	# another grep search, this time filtering out nested tags that 
-	# slipped through the initial extraction
-	@text = grep { $_ !~ /<.*(\/>|)/ } @text;
 
-	return @text;
+	# Remove any unclosed HTML tags
+    s/<[^>]+>//g;
+    
+	s/&.*?;//g;	# remove '&rquo;' type characters
+	s/\s+/ /g;	# cut spaces down to one
+
+	# calling trim function; directly accessing $_ here
+	$_ = trim $_;
+
+	# ternary expression filters out whitespace only chunks
+	return /\S/ ? $_ : ();
 }
 
 sub process_file {
@@ -126,7 +129,7 @@ sub process_file {
 
 		# .= operator concatenates strings. $text variable
 		# is collecting the merged line strings from the files.
-		$text .= join('',@chunk);
+		$text .= join(' ',@chunk);
 	}
 	return $text;
 }
@@ -136,9 +139,7 @@ sub normalize {
 
 	# a series of find/replace operations.
 	# Cleans up the text for easier processing.
-	$s =~ s/&.*?;//g;	# remove '&rquo;' type characters
 	$s =~ s/[^a-zA-Z ]//g;		# remove non-alphabetical
-	$s =~ s/\s+/ /g;	# cut spaces down to one
 	$s =~ tr/A-Z/a-z/;	# make all letters lowercase
 	return $s;	
 }
@@ -187,7 +188,6 @@ sub most_frequent_words {
 	# 'keys' func gets keys from dict.
 	foreach my $word (keys %word_counts) {
 		if ($word_counts{$word} == $max_occurences) {
-			# remember 'push' adds to the head of a list
 			push @top_words, $word;
 		}
 	}
@@ -247,18 +247,20 @@ sub print_info {
 	# Functions that return strings, lists are interpolated.
 	# Notice the last two prints are conditional, using the inline 'if'.
 	# Also notice that the value returned by @top_words is its length.
+	print $text, "\n\n";
 	print "FILE: $filename","\n";
 	print "\tWord Count: $word_count", "\n";
 	print "\tMost Frequent Content Word: ", shift @top_words, "\n" if @top_words == 1;
 	print "\tMost Frequent Content Words: ", join(' ', @top_words), "\n" if @top_words > 1;
+	print "\n";
 }
 
 # a main subroutine is NOT required in perl, but is good style.
 sub main {
 	my @files = get_files @ARGV;
 	foreach my $file (@files) {
-		my $text = process_file $file;
-		$text = normalize $text;
+		my $rawtext = process_file $file;
+		my $text = normalize $rawtext;
 		my @words = filter_stopwords $text;
 		print_info($file, $text, @words);
 	}
